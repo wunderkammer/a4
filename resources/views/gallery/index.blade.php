@@ -29,7 +29,7 @@
     @foreach ($v as $key => $value)
         <div class="floated_img"> 
         @if ($key == 'filename') 
-        <img width="100px" src="http://localhost:88/storage/{{$value}}">
+        <img width="100px" src="/storage/{{$value}}">
         @endif
         @if ($key == 'title')
         <p>
