@@ -25,22 +25,34 @@
 @section('content')
 
     <h1>Welcome {{Auth::user()->name}}</h1>
+    <table cellpadding="10" style="margin:auto;">
+    <th>Action</th>
+    <th>Title</th>
+    <th>Thumbnail image</th>
     @foreach($results as $k => $v)
+       <tr>
     @foreach ($v as $key => $value)
-        <div class="floated_img"> 
+        
         @if ($key == 'filename') 
+        <td>
         <img width="100px" src="/storage/{{$value}}">
+        </td>
         @endif
         @if ($key == 'title')
-        <p>
+        <td>
            {{$value}}
-        </p>
+        </td>
         @endif
         @if ($key == 'id')
+          <td>
           <a href="/drawing/edit/{{$value}}" >edit</a>
+          <br>
           <a href="/drawing/delete/{{$value}}" >delete</a>
+          </td>
         @endif
-        </div>
+        
     @endforeach
+       </tr>
     @endforeach 
+    </table>
 @endsection

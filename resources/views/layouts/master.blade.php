@@ -10,7 +10,7 @@
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css' rel='stylesheet'>
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
-    <!-- <link href="/css/gallery.css" type='text/css' rel='stylesheet'> -->
+    <link href="/css/gallery.css" type='text/css' rel='stylesheet'>
 
     @stack('head')
 
@@ -28,8 +28,7 @@
                 <nav>
                     <ul>
                         @if(Auth::check())
-                            <li><a href='/'>Home</a></li>
-                            <li><a href='/search'>Search</a></li>
+                            <li><a href='/home'>Home</a></li>
                             <li><a href='/gallery/new'>Add a drawing</a></li>
                             <li>
                                 <form method='POST' id='logout' action='/logout'>

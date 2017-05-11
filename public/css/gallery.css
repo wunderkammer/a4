@@ -1,171 +1,24 @@
-test additions to the Foobooks library" callout
------------------------------------------------------*/
-#newBooks {
-    background-color:Cornsilk;
-    padding:10px;
-    border-radius:5px;
-    margin-top:10px;
-    text-align:center;
+.big_wrap, .small_wrap {
+  width: 33%;
+  padding: 0;
 }
-
-#newBooks h2 {
-    margin-top:0;
-    text-align:center;
-    font-weight:bold;
-    font-size:1.6rem;
+.big_wrap > div {
+  width: 48%;
+  padding-top: 8%;
+  margin: 1%;
 }
-#newBooks ul {
-    margin:0;
-    padding:0;
-    list-style-type:none;
+.small_wrap > div {
+  width: 31.333%;
+  padding-top: 31.333%;
+  margin: 10%;
 }
-
-
-/*----------------------------------------------------
-Books
------------------------------------------------------*/
-#books {
-    margin-bottom:20px;
+td { 
+    padding: 10px;
 }
+th {
+  text-align:center;
 
-.book {
-    padding:10px;
-    width:100%;
-    margin-bottom:5px;
-    text-align:left;
 }
-
-.book h3 {
-    font-size:1.3em;
-    margin:4px 0 4px 0;
-    font-style:italic;
-    text-align:left;
-}
-
-a.bookAction:link {
-    padding:5px;
-    font-size:2.0rem;
-}
-
-a.bookAction:hover {
-    padding:5px;
-    color:#18bc9c; /* flatly teel */
-}
-
-.cover {
-    float:left;
-    width:100px;
-    height:137px;
-    background-color:#eee;
-    border:1px solid black;
-    margin-right:10px;
-}
-
-
-/*----------------------------------------------------
-Tags checkboxes
------------------------------------------------------*/
-#tags {
-    text-align:left;
-    list-style-type:none;
-    margin:0;
-    padding:0;
-}
-
-#tags label {
-    font-weight:normal;
-}
-
-/*----------------------------------------------------
-http://mystrd.at/modern-clean-css-sticky-footer
------------------------------------------------------*/
-html {
-    position:relative;
-    min-height:100%;
-}
-body {
-    margin:0 0 100px; /* bottom = footer height */
-}
-
-footer {
-    position: absolute;
-    left:0;
-    bottom:0;
-    height:30px;
-    width:100%;
-    background-color:#eee;
-    text-align:center;
-    padding:5px;
-}
-/* End Sticky Footer */
-
-
-/*----------------------------------------------------
-http://www.paulirish.com/2012/box-sizing-border-box-ftw/
------------------------------------------------------*/
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-/* End Box Sizing */
-
-
-/*----------------------------------------------------
-http://nicolasgallagher.com/micro-clearfix-hack/
------------------------------------------------------*/
-.cf:before,
-.cf:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.cf:after {
-    clear: both;
-}
-
-.cf {
-    *zoom: 1; /* For IE 6/7 only */
-}
-/* End clearfix */
-
-
-/*----------------------------------------------------
-Typography
------------------------------------------------------*/
-a:link, a:visited, a:active, a:hover {
-    text-decoration:underline;
-    color:black;
-}
-
-html {
-    font-size:62.5%; /* base 10 */
-}
-
-h1, h2, h3, h4, h5, h6 {
-    text-align:center;
-}
-
-h1 {
-    font-size:3.5rem
-}
-
-h2 {
-    font-size:3.0rem;
-}
-
-h3 {
-    font-size:2.5rem
-}
-
-.truncate {
-    width:100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 
 /*----------------------------------------------------
 Layout
@@ -174,53 +27,9 @@ Layout
     padding:25px;
     width:70%;
     max-width:960px;
-    margin:auto;
-}
-
-section {
     text-align:center;
 }
 
-p {
-    text-align:center;
-}
-
-@media (max-width: 800px) {
-    body {
-        width:100%;
-        padding:15px;
-    }
-}
-
-header {
-    text-align:center;
-}
-
-header #logo {
-    width:350px;
-}
-
-/* Flash messages shown at the top of the page */
-.message {
-    width:100%;
-    position:fixed;
-    top:0;
-    left:0;
-    padding:5px;
-    text-align:center;
-    font-size:18px;
-    background-color:yellow;
-}
-
-.error {
-    margin-top:10px;
-}
-
-.error ul {
-    list-style-type: none;
-    margin:0;
-    padding:0;
-}
 
 /*----------------------------------------------------
 Nav bar
@@ -252,47 +61,9 @@ nav ul li a:link {
 nav ul li a:hover {
     color:#18bc9c; /* flatly teel */
 }
-
-a.active:link, a.active:visited, a.active:active, a.active:hover {
-    color:#18bc9c;
 }
 
 
-/*----------------------------------------------------
-Forms
------------------------------------------------------*/
-label, legend {
-    display:block;
-    margin-top:20px;
-    margin-bottom:0;
-}
-
-input[type=text], input[type=email], input[type=password], textarea, select {
-    display:block;
-    width:100%;
-    font-size:1.5rem;
-    padding:3px;
-    font-family:Consolas, Courier, monospace;
-}
-
-input[type='checkbox'], input[type='radio'] {
-    display:inline;
-}
-
-input[type='checkbox'] + label {
-    display:inline;
-}
-
-label {
-    margin-top:20px;
-    display:block;
-    font-size:12px;
-    font-size:1.2rem;
-    letter-spacing:.75px;
-    font-weight:bold;
-    text-transform:uppercase;
-    text-align:left;
-}
 
 
 #login, #register {

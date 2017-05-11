@@ -11,7 +11,7 @@
 
 
 @section('content')
-<div class="main" style="width:550px;">
+<div class="main">
     <h1>Edit your masterpiece, {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}!</h1>
     <canvas id="drawingCanvas" width="550" height="450" style="border:1pt solid black;margin:auto;cursor:crosshair;clear:both;">
 </canvas>
