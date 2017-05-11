@@ -25,7 +25,23 @@ class GalleryController extends Controller {
     }
 
     public function storeNewGallery(Request $request) {
+        $messages = [
+            'title' => 'Please provide a title.',
+            'description' => 'Please provide a description.',
+        ];
+
+        # Custom error message
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required',
+        ],$messages);
+
+
+
+
         if(isset($_POST['title'])){
+
+
         $drawing = new Drawing();
         $user = $request->user();
         # Set the parameters
@@ -111,13 +127,17 @@ class GalleryController extends Controller {
         ]);
     }
      public function saveEdits(Request $request) {
-        /* 
+         $messages = [
+            'title.required' => 'Title not provided.',
+            'description.required' => 'Description not provided.',
+        ];
+        
         # Custom error message
         $this->validate($request, [
             'title' => 'required|min:3',
             'description' => 'required|min:3',
         ], $messages);
-        */
+        
         $drawing = Drawing::find($request->id);
         //$drawing = Drawing::where("id","=",$request->id)->first();
         # Edit book in the database

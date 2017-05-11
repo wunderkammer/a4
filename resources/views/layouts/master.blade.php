@@ -17,9 +17,18 @@
 </head>
 <body>
 
-    <div id='content' style="position:relative;text-align:center">
+    <div id='content'>
         @if(Session::get('message') != null)
             <div class='message'>{{ Session::get('message') }}</div>
+        @endif
+        @if(count($errors) > 0)
+         <div class='message'>
+         <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+        </div>
         @endif
 
         <header>
