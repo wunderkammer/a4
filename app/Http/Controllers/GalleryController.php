@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Input;
 use App\Drawing;
+use App\Gallery;
 use Session;
 use Storage;
 
@@ -19,9 +20,11 @@ class GalleryController extends Controller {
     public function index(Request $request) {
         $drawing = new Drawing();
         $user = $request->user();
+        $galleriesForDropdown = Gallery::getGalleriesForDropdown();
         $results = Drawing::where('user_id', '=', $user['id'])->get();
         $results_array = $results->toArray();
-        return view('gallery.index')->with(['results'=>$results_array]);
+        $gallery_array = [];
+        return view('gallery.index')->with(['results'=>$results_array,'galleries'=>$galleriesForDropdown]);
     }
 
     public function storeNewGallery(Request $request) {
@@ -56,13 +59,24 @@ class GalleryController extends Controller {
         # `books` table, with the above data
         $drawing->save();
 
+        if($request->galleries) {
+           $galleries = $request->galleries;
+        }
+        else {
+            $galleries = [];
+        }
+        $drawing->galleries()->sync($galleries);
+        $drawing->save();
+
+
         } else {
            dump('Not Added');
         }
         return redirect('/home');
     }
     public function createNewGallery(Request $request){
-         return view('gallery.new');
+         $galleriesForDropdown = Gallery::getGalleriesForDropdown();
+         return view('gallery.new')->with(['galleries'=>$galleriesForDropdown]);
     }
 
     public function delete() {
@@ -98,17 +112,18 @@ class GalleryController extends Controller {
    public function editDrawing($id) {
         $drawing = Drawing::where('id','=',$id)->get();
         $results_array = $drawing->toArray();
+        $galleriesForDropdown = Gallery::getGalleriesForDropdown();
         if(is_null($drawing)) {
             Session::flash('message', 'The drawing you requested was not found.');
             return redirect('/home');
         }
-        # Results in an array like this: $tagsForThisBook => ['novel','fiction','classic'];
         return view('gallery.edit')->with([
             'id' => $id,
             'filename' => $results_array[0]['filename'],
             'title' => $results_array[0]['title'],
             'description' => $results_array[0]['description'],
             'public' => $results_array[0]['public'],
+            'galleries' =>$galleriesForDropdown
         ]);
     }
     public function edit($id) {
@@ -149,17 +164,18 @@ class GalleryController extends Controller {
         $drawing->public = $public;
         $drawing->title = $request->title;
         $drawing->description = $request->description;
-        # If there were tags selected...
-        if($request->tags) {
-            $tags = $request->tags;
+        if($request->galleries) {
+           $galleries = $request->galleries;
         }
-        # If there were no tags selected (i.e. no tags in the request)
-        # default to an empty array of tags
         else {
-            $tags = [];
+            $galleries = [];
         }
+        $drawing->save();
+
+
         # Above if/else could be condensed down to this: $tags = ($request->tags) ?: [];
         # Sync tags
+        $drawing->galleries()->sync($galleries);
         $drawing->save();
         Session::flash('message', 'Your changes to '.$drawing->title.' were saved.');
         
@@ -172,6 +188,7 @@ class GalleryController extends Controller {
             Session::flash('message', 'Deletion failed; book not found.');
             return redirect('/home');
         }
+        $drawing->galleries()->detach();
         $drawing->delete();
         # Finish
         Session::flash('message', $drawing->title.' was deleted.');

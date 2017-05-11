@@ -54,6 +54,14 @@
         <input type="checkbox" name="public" value="{{$public}}">Public
         @endif      
         <br><br>
+        
+        <label for="gallery_select">select a gallery for this doodle: </label>
+        <select id="gallery_select" name="galleries[]" multiple>
+            @foreach($galleries as $key=>$value)
+              <option value="{{$key}}">{{$value}}</option>
+            @endforeach
+        </select>
+        <br><br><br>
         <input class='btn btn-primary' type='submit' value='Save Edits' onclick="saveImage();">
 
     </form>

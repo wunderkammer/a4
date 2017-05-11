@@ -69,7 +69,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Start Drawing!</a>
                     @else
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
@@ -78,7 +78,8 @@
             @endif
 
             <div class="content">
-            <h1>Welcome to Sketchbook!</h1>
+            <h1>Welcome to doodleBook!</h1>
+             <h3>A web app for doodle masterpieces</h3>
              @foreach($results as $k => $v)
                  @foreach ($v as $key => $value)
                      <div class="floated_img">

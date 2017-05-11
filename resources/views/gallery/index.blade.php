@@ -30,6 +30,15 @@
         <h3>You do not have any drawings yet.<br> Add some by clicking on 'Add A Drawing'!</h3> 
 
     @else
+    <label for="gallery_select">Select gallery to display: </label>
+    <select id="gallery_select">
+     <option value="all">all</option>
+     @foreach($galleries as $key=>$value)
+       <option value="{{$key}}">{{$value}}</option>
+     @endforeach
+    </select>
+    <br><br>
+    <hr> 
     <table cellpadding="10" style="margin-left:2%;width:100%;">
     <th>Action</th>
     <th>Title</th>

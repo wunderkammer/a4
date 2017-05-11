@@ -58,8 +58,13 @@
         <label for='description'>* Description</label>
         <input type='text' name='description' id='description' value=''>
         <br>
-        <input type="checkbox" checked="checked" name="public" value="1">Public
-        <br><br>
+        <label for="gallery_select">select a gallery for this doodle: </label>
+        <select id="gallery_select" name="galleries[]" multiple>
+            @foreach($galleries as $key=>$value)
+              <option value="{{$key}}">{{$value}}</option>
+            @endforeach
+        </select>
+        <br><br><br>
         <input class='btn btn-primary' type='submit' value='Save new drawing' onclick="saveImage();">
     </form>
 </div>
