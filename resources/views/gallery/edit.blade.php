@@ -2,7 +2,7 @@
 @extends('layouts.master')
 
 @section('title')
-    New book
+    Edit drawing
 @endsection
 
 @push('head')
@@ -48,11 +48,6 @@
         <label for='title'>* Description</label>
         <input type='text' name='description' id='description' value='{{$description}}'>
         <br>
-        @if($public == 1)
-        <input type="checkbox" checked="checked" name="public" value="{{$public}}">Public
-        @else
-        <input type="checkbox" name="public" value="{{$public}}">Public
-        @endif      
         <br><br>
         
         <label for="gallery_select">select a gallery for this doodle: </label>

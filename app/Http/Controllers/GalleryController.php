@@ -36,31 +36,29 @@ class GalleryController extends Controller {
         }else{
         	$drawing = Gallery::with('drawings')->find($request->value);
                 $formatted_data_array = []; 
-        $results2 = $drawing->toArray();
-        foreach($results2 as $key=>$value){
-                if($key == 'drawings'){
+                $results2 = $drawing->toArray();
+
+                foreach($results2 as $key=>$value){
+                    if($key == 'drawings'){
                         foreach($value as $v=>$k){
-                            $formatted_data_array[$k['id']] = [];
-                            $formatted_data_array[$k['id']]['id'] = $k['id'];
-                            $formatted_data_array[$k['id']]['title'] = $k['title'];
-                            $formatted_data_array[$k['id']]['filename'] = $k['filename'];
-                        }
+			    $drawing2 = Drawing::where('user_id', $user['id'])->where('filename', $k['filename'])->first();
+                            if($drawing2){
+                                $formatted_data_array[$k['id']] = []; 
+                            	$formatted_data_array[$k['id']]['id'] = $k['id'];
+                            	$formatted_data_array[$k['id']]['title'] = $k['title'];
+                            	$formatted_data_array[$k['id']]['filename'] = $k['filename'];
+			    }	
+			}
+
+		    }
                 }
         }
-        }
-       // $gallery = Gallery::whereHas('drawings',function($q)
-       // {
-       //
-       //   $q->where('user_id','=',2);
-       // })->find($request->value);
 
         $galleriesForDropdown = Gallery::getGalleriesForDropdown();
         $results =  $formatted_data_array;
         $gallery_array = [];
         $html= view('gallery.table', compact('results'))->render();
         return response()->json(compact('html'));
-        //return redirect('/home');
-        //return view('gallery.index')->with(['results'=>$results,'html'=>$html,'drawings'=>$drawing_array,'galleries'=>$galleriesForDropdown]);        
     }
 
     public function storeNewGallery(Request $request) {

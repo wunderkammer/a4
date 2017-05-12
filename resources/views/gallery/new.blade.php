@@ -2,7 +2,7 @@
 @extends('layouts.master')
 
 @section('title')
-    New book
+    New drawing
 @endsection
 
 @push('head')
