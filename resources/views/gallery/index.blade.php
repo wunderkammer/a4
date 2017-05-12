@@ -19,7 +19,7 @@
 @endpush
 
 @section('title')
-    Books
+    doodleBook
 @endsection
 
 @section('content')
@@ -30,44 +30,41 @@
         <h3>You do not have any drawings yet.<br> Add some by clicking on 'Add A Drawing'!</h3> 
 
     @else
+     <meta name="csrf-token" content="{!! csrf_token() !!}">
+    <form method='POST' action="/gallery_filter">
+    {{ csrf_field() }}
     <label for="gallery_select">Select gallery to display: </label>
-    <select id="gallery_select">
+    <select id="gallery_select" name="gallery_select">
      <option value="all">all</option>
      @foreach($galleries as $key=>$value)
        <option value="{{$key}}">{{$value}}</option>
      @endforeach
     </select>
+    </form>
     <br><br>
-    <hr> 
-    <table cellpadding="10" style="margin-left:2%;width:100%;">
-    <th>Action</th>
-    <th>Title</th>
-    <th>Thumbnail image</th>
-    @foreach($results as $k => $v)
-       <tr>
-    @foreach ($v as $key => $value)
-        
-        @if ($key == 'filename') 
-        <td>
-        <img width="100px" src="/storage/{{$value}}">
-        </td>
-        @endif
-        @if ($key == 'title')
-        <td>
-           {{$value}}
-        </td>
-        @endif
-        @if ($key == 'id')
-          <td>
-          <a href="/drawing/edit/{{$value}}" >edit</a>
-          <br>
-          <a href="/drawing/delete/{{$value}}" >delete</a>
-          </td>
-        @endif
-        
-    @endforeach
-       </tr>
-    @endforeach 
-    </table>
+    <hr>
+    <div id="table">
+    @include('gallery.table')
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+       $('#gallery_select').change(function(){
+           console.log($("#gallery_select").val());
+           $.ajax({
+              type: "GET",
+              url: "/gallery_filter",
+              data: {
+                   '_token': $('meta[name="csrf-token"]').attr('content')
+                   ,pledge:  $(this).data('pledge') 
+                   ,value: $("#gallery_select").val() 
+                   },
+              success: function(data){
+                 console.log(data.value);
+                 $('#table').html(data.html);
+              }
+           });
+       });
+
+    </script>
     @endif
 @endsection

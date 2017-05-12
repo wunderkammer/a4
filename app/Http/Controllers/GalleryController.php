@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\View;
 
 use Input;
 use App\Drawing;
@@ -25,6 +26,41 @@ class GalleryController extends Controller {
         $results_array = $results->toArray();
         $gallery_array = [];
         return view('gallery.index')->with(['results'=>$results_array,'galleries'=>$galleriesForDropdown]);
+    }
+
+    public function gallery_filter(Request $request) {
+        $user = $request->user();
+        if($request->value == 'all'){
+                $drawing = Drawing::where('user_id', '=', $user['id'])->get();
+                $formatted_data_array = $drawing->toArray();
+        }else{
+        	$drawing = Gallery::with('drawings')->find($request->value);
+                $formatted_data_array = []; 
+        $results2 = $drawing->toArray();
+        foreach($results2 as $key=>$value){
+                if($key == 'drawings'){
+                        foreach($value as $v=>$k){
+                            $formatted_data_array[$k['id']] = [];
+                            $formatted_data_array[$k['id']]['id'] = $k['id'];
+                            $formatted_data_array[$k['id']]['title'] = $k['title'];
+                            $formatted_data_array[$k['id']]['filename'] = $k['filename'];
+                        }
+                }
+        }
+        }
+       // $gallery = Gallery::whereHas('drawings',function($q)
+       // {
+       //
+       //   $q->where('user_id','=',2);
+       // })->find($request->value);
+
+        $galleriesForDropdown = Gallery::getGalleriesForDropdown();
+        $results =  $formatted_data_array;
+        $gallery_array = [];
+        $html= view('gallery.table', compact('results'))->render();
+        return response()->json(compact('html'));
+        //return redirect('/home');
+        //return view('gallery.index')->with(['results'=>$results,'html'=>$html,'drawings'=>$drawing_array,'galleries'=>$galleriesForDropdown]);        
     }
 
     public function storeNewGallery(Request $request) {

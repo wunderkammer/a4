@@ -16,6 +16,8 @@ Route::get('/', 'GalleryController@welcome');
 
 Route::get('/gallery', 'GalleryController@index');
 Route::post('/gallery', 'GalleryController@index');
+Route::get('/gallery_filter', 'GalleryController@gallery_filter');
+Route::post('/gallery_filter', 'GalleryController@gallery_filter');
 Route::group(['middleware' => 'auth'], function () {
 Route::get('/gallery/new', 'GalleryController@createNewGallery');
 Route::post('/gallery/new', 'GalleryController@storeNewGallery');
